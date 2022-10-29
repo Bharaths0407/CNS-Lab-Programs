@@ -1,12 +1,9 @@
-import java.lang.*;
-import java.io.*;
 import java.util.Random;
 import java.util.Scanner;
 
 class leaky {
-    public static void main(String[] args) {
-        int drop = 0, mini, nsec, p_remain = 0;
-        int o_rate, b_size, i, packet[];
+    public static void main(String args[]) {
+        int drop = 0, mini, nsec, p_remain = 0 , o_rate, b_size, i, packet[];
         packet = new int[100];
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter the Bucket Size: ");
@@ -26,13 +23,11 @@ class leaky {
             if (p_remain > b_size) {
                 drop = p_remain - b_size;
                 p_remain = b_size;
-                System.out.print(i + 1 + "     ");
-                System.out.print(packet[i] + "     ");
+                System.out.print(i + 1 + "     " + packet[i] + "     ");
                 mini = Math.min(p_remain, o_rate);
                 System.out.print(mini + "     ");
                 p_remain -= mini;
-                System.out.print(p_remain + "     ");
-                System.out.print(drop + "     ");
+                System.out.print(p_remain + "     " + drop + "     " );
                 System.out.println();
                 drop = 0;
             }
