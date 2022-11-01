@@ -5,8 +5,8 @@ The leaky Bucket Algorithm which is one of the congestion control used in Networ
 
 The Main logic function of the program is showed below in the image
 
-image.png
+![First Function](leaky bucket/Leaky1.jpg)
 
-image.png
+![Second Function](leaky bucket/Leaky2.jpg)
 
 The Complete Code is in the above File leaky.java
