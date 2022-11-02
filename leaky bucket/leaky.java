@@ -14,7 +14,7 @@ class leaky {
         nsec = sc.nextInt();
         Random r = new Random();
         for (i = 0; i < nsec; i++) {
-            packet[i] = ((r.nextInt(9) + 1) + 10);
+            packet[i] = ((r.nextInt(9) + 1) * 10);
         }
         System.out.println("Seconds || Packets Received || Packets Sent || Packets Left || Packet Dropped");
         System.out.println(".............................................................................");
@@ -38,7 +38,7 @@ class leaky {
                 p_remain = b_size;
             }
             mini = Math.min(p_remain, o_rate);
-            System.out.print("     " + p_remain + "     " + mini);
+            System.out.print("     " + p_remain + "     " + mini + "     ");
             p_remain -= mini;
             System.out.println(p_remain + "     " + drop);
             drop = 0;
