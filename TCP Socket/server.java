@@ -5,12 +5,14 @@ public class server {
     public static void main(String[] args) throws IOException {
         // listen on port 7777
         ServerSocket seso = new ServerSocket(7777); // seso = server
-
-        while (true) 
-        {
+        System.out.println("Server Ready For Connection");
+        
             // wait for a client to connect
             Socket cs = seso.accept(); // cs = Client Socket
+            System.out.println("Client Successfully Connected");
+            // send a message to the client
             DataInputStream in = new DataInputStream(cs.getInputStream());
+
             
             // read the file name from the client
             String fn = in.readUTF(); // fn = File name
@@ -35,7 +37,6 @@ public class server {
                 out.writeUTF("File not found"); // send a message to the client if the file is not found
             }
             cs.close(); // close the socket
-        }
     }
 }
 

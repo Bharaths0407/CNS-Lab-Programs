@@ -8,7 +8,7 @@ public class client {
         DataOutputStream out = new DataOutputStream(cs.getOutputStream());
         
         // send the file name to the server
-        out.writeUTF("example.txt");
+        out.writeUTF("arjun.txt");
         DataInputStream in = new DataInputStream(cs.getInputStream());
         
         // read the file data from the server
