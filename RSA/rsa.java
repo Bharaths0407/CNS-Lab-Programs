@@ -1,42 +1,41 @@
 import java.math.BigInteger;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import javax.crypto.Cipher;
+import java.security.SecureRandom;
 
-public class rsa {
+public class RSA {
+    private final static BigInteger one = new BigInteger("1");
+    private BigInteger privateKey;
+    private BigInteger publicKey;
+    private BigInteger modulus;
 
-    public static void main(String[] args) throws Exception {
-        KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
-        keyGen.initialize(2048);
-        KeyPair keyPair = keyGen.generateKeyPair();
-        PublicKey publicKey = keyPair.getPublic();
-        PrivateKey privateKey = keyPair.getPrivate();
+    // generate an N-bit (roughly) public and private key
+    RSA(int N) {
+        SecureRandom r = new SecureRandom();
+        BigInteger p = new BigInteger(N / 2, 100, r);
+        BigInteger q = new BigInteger(N / 2, 100, r);
+        BigInteger phi = (p.subtract(one)).multiply(q.subtract(one));
 
-        String plainText = "This is the message to be encrypted";
-        byte[] cipherText = encrypt(plainText, publicKey);
-        String decryptedText = decrypt(cipherText, privateKey);
-
-        System.out.println("Original Text : " + plainText);
-        System.out.println("Encrypted Text : " + new String(cipherText));
-        System.out.println("Decrypted Text : " + decryptedText);
+        modulus = p.multiply(q);
+        publicKey = new BigInteger("65537"); // common value in practice = 2^16 + 1
+        privateKey = publicKey.modInverse(phi);
     }
 
-    public static byte[] encrypt(String plainText, PublicKey publicKey) throws Exception {
-        Cipher encryptCipher = Cipher.getInstance("RSA");
-        encryptCipher.init(Cipher.ENCRYPT_MODE, publicKey);
-
-        byte[] cipherText = encryptCipher.doFinal(plainText.getBytes());
-        return cipherText;
+    BigInteger encrypt(BigInteger message) {
+        return message.modPow(publicKey, modulus);
     }
 
-    public static String decrypt(byte[] cipherText, PrivateKey privateKey) throws Exception {
-        Cipher decryptCipher = Cipher.getInstance("RSA");
-        decryptCipher.init(Cipher.DECRYPT_MODE, privateKey);
+    BigInteger decrypt(BigInteger encrypted) {
+        return encrypted.modPow(privateKey, modulus);
+    }
 
-        byte[] decryptedText = decryptCipher.doFinal(cipherText);
-        return new String(decryptedText);
+    public static void main(String[] args) {
+        RSA rsa = new RSA(128);
+        String message = "This is a secret message";
+        BigInteger bigInt = new BigInteger(message.getBytes());
+        BigInteger encrypted = rsa.encrypt(bigInt);
+        BigInteger decrypted = rsa.decrypt(encrypted);
+        String decryptedMessage = new String(decrypted.toByteArray());
+        System.out.println("Original message: " + message);
+        System.out.println("Encrypted message: " + encrypted);
+        System.out.println("Decrypted message: " + decryptedMessage);
     }
 }
