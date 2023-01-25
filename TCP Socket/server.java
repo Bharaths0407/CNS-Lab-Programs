@@ -12,7 +12,6 @@ public class server {
             System.out.println("Client Successfully Connected");
             // send a message to the client
             DataInputStream in = new DataInputStream(cs.getInputStream());
-
             
             // read the file name from the client
             String fn = in.readUTF(); // fn = File name
