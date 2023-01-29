@@ -59,6 +59,6 @@ public class crc {
                 System.out.println("No error");
             }
         }
-        System.out.println("Arigato");
+        System.out.println("Thank You");
     }
 }
