@@ -35,7 +35,7 @@ public class bellman {
         for(int i = 0; i < n; i++) {
             System.out.println("Router " + i + " value is : ");
             for(int j = 0; j < n; j++) {
-                System.out.println("To " + j + "via " + via[i][j] + " distance is " + dist[i][j]);
+                System.out.println("To " + j + " via " + via[i][j] + " distance is " + dist[i][j]);
             }
         }
     }
